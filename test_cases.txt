@@ -1,0 +1,104 @@
+###login page elements
+Given a user navigates to the login page
+And inspects the page
+Then the page will contain 
+    link header with title 'ninjaOne', 
+    email input, 
+    passwor input, 
+    checkbox option to 'Keep me signed in', 
+    'Sign in' button, 
+    'Forgot your password?' link, 
+    'Do not have an account' link, 
+    'NinjaOne LLC © 2014-2025' copy right text footer, 
+    'Contact us' link, 
+    And CAPTCHA icon
+
+###login positive tests
+Given a user clicks on the ninjaOne header, then the user will be taken to the login page
+
+Given a user enters a valid email and password 
+And clicks on 'Sign In'
+Then the user will be successfully logged in
+
+Given a user enters a valid email and password 
+And enables 'Keep me Signed in' option
+And clicks on 'Sign In'
+And successfully logs in
+And closes the browser
+When the user opens a new browser and navigates to the login page
+Then the user will be taken to the main app page without having to login
+
+Given a user clicks on 'Forgot your password?' link
+Then the user will be taken to a new page where password reset process can begin on the same tab
+
+Given a user clicks on 'Do not have an account?' link
+Then the user will be taken to registration page on the same tab
+
+Given a user clicks on 'Contact us' link
+Then the user will be taken to phone directory page with list of appropriate contacts on a new tab
+
+Given a user click on the privacy link on CAPTCHA
+Then the user will be taken to Google's Privacy Policy page
+
+Given a user clicks on the terms link on CAPTCHA
+Then the user will be taken to Google's Terms of Service page
+
+###login negative tests
+Given a user enters an invalid email and password 
+And clicks on 'Sign In'
+Then the login will fail
+
+Given a user enters an email with no password
+And clicks on 'Sign In'
+Then the login will fail
+
+Given a user enters a password with no email
+And clicks on 'Sign In'
+Then the login will fail
+
+Given a user does not enter an email or password
+And clicks on 'Sign In'
+Then the login will fail
+
+Given a user enters an invalid email and password
+And repeatedly clicks on 'Sign In'
+Then upon the next valid login attempt with valid email and password, login will require CAPTCHA verification
+
+###login security tests
+Given a user enters a SQL command to any input fields 
+And clicks on 'Sign In'
+Then the login will fail the query will fail to run
+
+Given a user enters a Javascript code to any input fields 
+And clicks on 'Sign In'
+Then the login will fail the code will fail to run
+
+Given a user enters a valid email and password
+And clicks on 'Sign In'
+Then upon login the password should be encrypted in transit
+
+###login load/performance tests
+Given high concurrent login attempts with valid emails and passwords
+Then the render response time should be consistent and the server should be able handle all requests without performance issue
+
+Given extreme concurrent login attempts with valid emails and passwords beyond system resource limit
+Then the system should handle/fail the traffic gracefully without exposing any vulnerabilities
+
+###login exploratory tests
+Given a user navigates to the login page on major browsers Chrome, Firefox, Safari, and Edge
+Then the page will render successfully with all elements correctly displayed
+
+Given a user navigates to the login page on an android mobile device
+Then the page will render successfully with all elements correctly displayed
+
+Given a user navigates to the login page on an iOS mobile device
+Then the page will render successfully with all elements correctly displayed
+
+Given an existing valid email in all lowercase
+When a user enters the email in all uppercase with valid password
+Then the login will fail due to case sensitivity
+
+Given a user enters an invalid email or/and password repeatedly
+Then the system will trigger a mechanism to prevent potential harm (ex. trigger exponential backoff on subsequent login attempts, user lockout, etc) 
+
+###forgot password tests
